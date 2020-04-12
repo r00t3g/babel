@@ -18,22 +18,19 @@ function getReifyPlugin(features) {
 
 function getReifyOptions(features) {
   const reifyOptions = {
-    avoidModernSyntax: true,
+    avoidModernSyntax: false,
     enforceStrictMode: false,
     dynamicImport: true
   };
 
   if (features) {
-    if (features.modernBrowsers ||
-        features.nodeMajorVersion >= 8) {
-      reifyOptions.avoidModernSyntax = false;
-      reifyOptions.generateLetDeclarations = true;
-    }
+    reifyOptions.avoidModernSyntax = false
+    reifyOptions.generateLetDeclarations = true
 
     if (features.compileForShell) {
       // If we're compiling code to run in the Node REPL; we never want to
       // wrap it with a function to rename the `module` identifier.
-      reifyOptions.moduleAlias = "module";
+      reifyOptions.moduleAlias = 'module'
     }
   }
 
@@ -46,9 +43,7 @@ exports.getDefaults = function getDefaults(features) {
       return getDefaultsForNode8(features);
     }
 
-    if (features.modernBrowsers) {
-      return getDefaultsForModernBrowsers(features);
-    }
+    return getDefaultsForModernBrowsers(features)
   }
 
   const combined = {
